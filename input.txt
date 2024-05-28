@@ -1,0 +1,84 @@
+@
+$
+cp
+c  p
+month<=12
+month <= 12
+58
+135
+4321
+0
+3
+214748
+varName
+my_variable
+counter569
+calculateSum
+processData
+printMessage
+Person
+12car
+_Employee
+"Hello, world!"
+"This is a test string"
+"12345"
+572
+-456
+23901
+2,17
+-1.4
+5.0
+0
+// single line comment
+/* multi-line comment */
+
+Αυτό
+είναι;
+ένα;
+τεστ
+Ένα;
+τέστ;
+συμβολοσειράς
+    Άλλο    ένα    τεστ
+
++
+-
+/
+%
+=
++=
+-=
+*=
+/=
+++
+--
+==
+!=
+<
+<=
+>
+>=
+!
+&&
+||
+&
+return
+break
+a+=1;
+// γεια
+1+1
+2-2
+a+=5
+ 
+  
+   
+0x213
+0532
+x=10;
+kapa;
+x<10
+x>2
+x<=5
+x==4
+x!=2
+int x=10;
