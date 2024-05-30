@@ -58,7 +58,6 @@ ERROR           [^;=\+\-\*/%\(\)\[\]\{\}\t\n ]+
 {STRING}        { yylval=yytext; return STRING;    }   /*1.3.3 Λεκτικά κυριολεκτικά   */
 {INTEGER}       { yylval=yytext; return INTEGER;   }   /*1.3.4.1 Ακέραιοι             */
 {FLOAT}         { yylval=yytext; return FLOAT;     }   /*1.3.4.2 Αριθμοί κινούμενης υποδιαστολής*/
-{OPERATOR}      { yylval=yytext; return OPERATOR;  }   /*1.3.5 Τελεστές               */
 {COMMENT}       { yylval=yytext; return COMMENT;   }   /*1.4 Σχολια                   */
 {WHITE_SPACES}  { } /*1.5 White_spaces χαρακτήρες  */
 {ERROR}         { yylval=yytext; return ERROR;}        /*Κατηγορία λαθών*/
@@ -71,16 +70,16 @@ ERROR           [^;=\+\-\*/%\(\)\[\]\{\}\t\n ]+
 "%"             return MOD;
 "=="            return DOUBLE_EQUAL;
 "!="            return NOT_EQUAL;
-"<="            return SMALL_EQUAL
+"<="            return SMALL_EQUAL;
 ">="            return BIG_EQUAL;
 "<"             return SMALL;
 ">"             return BIG;
 "&&"            return AND;
 "|"             return BIT_OR;
 "||"            return OR;
-"+="            return PLUS_EQUAL
-"*="            return MULT_EQUAL
-"/="            return DIV_EQUAL
+"+="            return PLUS_EQUAL;
+"*="            return MULT_EQUAL;
+"/="            return DIV_EQUAL;
 "!"             return NOT;
 "++"            return DOUBLE_PLUS;
 "--"            return DOUBLE_MINUS;

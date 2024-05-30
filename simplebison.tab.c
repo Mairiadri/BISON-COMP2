@@ -76,9 +76,10 @@
 #define YYSTYPE char*
 void truncatehash(char* str);
 extern int yylex (void);
+int yyparse();
 int yyerror(char *);
 
-#line 82 "simplebison.tab.c"
+#line 83 "simplebison.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -122,15 +123,37 @@ enum yysymbol_kind_t
   YYSYMBOL_END = 13,                       /* END  */
   YYSYMBOL_PLUS = 14,                      /* PLUS  */
   YYSYMBOL_MINUS = 15,                     /* MINUS  */
-  YYSYMBOL_TIMES = 16,                     /* TIMES  */
-  YYSYMBOL_DIVIDE = 17,                    /* DIVIDE  */
-  YYSYMBOL_NEG = 18,                       /* NEG  */
-  YYSYMBOL_POWER = 19,                     /* POWER  */
-  YYSYMBOL_YYACCEPT = 20,                  /* $accept  */
-  YYSYMBOL_Input = 21,                     /* Input  */
-  YYSYMBOL_Line = 22,                      /* Line  */
-  YYSYMBOL_Comments = 23,                  /* Comments  */
-  YYSYMBOL_Expression = 24                 /* Expression  */
+  YYSYMBOL_MULTIPLY = 16,                  /* MULTIPLY  */
+  YYSYMBOL_DIV = 17,                       /* DIV  */
+  YYSYMBOL_MOD = 18,                       /* MOD  */
+  YYSYMBOL_DOUBLE_EQUAL = 19,              /* DOUBLE_EQUAL  */
+  YYSYMBOL_NOT_EQUAL = 20,                 /* NOT_EQUAL  */
+  YYSYMBOL_SMALL_EQUAL = 21,               /* SMALL_EQUAL  */
+  YYSYMBOL_BIG_EQUAL = 22,                 /* BIG_EQUAL  */
+  YYSYMBOL_SMALL = 23,                     /* SMALL  */
+  YYSYMBOL_BIG = 24,                       /* BIG  */
+  YYSYMBOL_AND = 25,                       /* AND  */
+  YYSYMBOL_BIT_OR = 26,                    /* BIT_OR  */
+  YYSYMBOL_OR = 27,                        /* OR  */
+  YYSYMBOL_PLUS_EQUAL = 28,                /* PLUS_EQUAL  */
+  YYSYMBOL_MULT_EQUAL = 29,                /* MULT_EQUAL  */
+  YYSYMBOL_DIV_EQUAL = 30,                 /* DIV_EQUAL  */
+  YYSYMBOL_NOT = 31,                       /* NOT  */
+  YYSYMBOL_DOUBLE_PLUS = 32,               /* DOUBLE_PLUS  */
+  YYSYMBOL_DOUBLE_MINUS = 33,              /* DOUBLE_MINUS  */
+  YYSYMBOL_BIT_AND = 34,                   /* BIT_AND  */
+  YYSYMBOL_EQUAL = 35,                     /* EQUAL  */
+  YYSYMBOL_DIVIDE = 36,                    /* DIVIDE  */
+  YYSYMBOL_NEG = 37,                       /* NEG  */
+  YYSYMBOL_YYACCEPT = 38,                  /* $accept  */
+  YYSYMBOL_Input = 39,                     /* Input  */
+  YYSYMBOL_Line = 40,                      /* Line  */
+  YYSYMBOL_Comments = 41,                  /* Comments  */
+  YYSYMBOL_Keywords = 42,                  /* Keywords  */
+  YYSYMBOL_Strings = 43,                   /* Strings  */
+  YYSYMBOL_Error = 44,                     /* Error  */
+  YYSYMBOL_Variable = 45,                  /* Variable  */
+  YYSYMBOL_Expression = 46                 /* Expression  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -458,19 +481,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   21
+#define YYLAST   202
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  20
+#define YYNTOKENS  38
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  9
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  14
+#define YYNRULES  47
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  22
+#define YYNSTATES  77
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   274
+#define YYMAXUTOK   292
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -511,15 +534,20 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    27,    27,    29,    33,    34,    35,    39,    42,    43,
-      44,    45,    46,    47,    48
+       0,    29,    29,    31,    35,    36,    37,    38,    39,    40,
+      41,    45,    49,    53,    54,    58,    62,    63,    64,    67,
+      68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    79,    80,    81,    82,    83,    84,    85,    86,    87,
+      88,    89,    90,    91,    92,    93,    94,    95
 };
 #endif
 
@@ -537,9 +565,12 @@ static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "WHITE_SPACES",
   "INTEGER", "KEYWORD", "IDENTIFIER", "FLOAT", "COMMENT", "STRING",
-  "OPERATOR", "DELIMITER", "ERROR", "END", "PLUS", "MINUS", "TIMES",
-  "DIVIDE", "NEG", "POWER", "$accept", "Input", "Line", "Comments",
-  "Expression", YY_NULLPTR
+  "OPERATOR", "DELIMITER", "ERROR", "END", "PLUS", "MINUS", "MULTIPLY",
+  "DIV", "MOD", "DOUBLE_EQUAL", "NOT_EQUAL", "SMALL_EQUAL", "BIG_EQUAL",
+  "SMALL", "BIG", "AND", "BIT_OR", "OR", "PLUS_EQUAL", "MULT_EQUAL",
+  "DIV_EQUAL", "NOT", "DOUBLE_PLUS", "DOUBLE_MINUS", "BIT_AND", "EQUAL",
+  "DIVIDE", "NEG", "$accept", "Input", "Line", "Comments", "Keywords",
+  "Strings", "Error", "Variable", "Expression", YY_NULLPTR
 };
 
 static const char *
@@ -549,7 +580,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-13)
+#define YYPACT_NINF (-12)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -561,11 +592,16 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-static const yytype_int8 yypact[] =
+static const yytype_int16 yypact[] =
 {
-     -13,     0,   -13,   -13,   -13,    -9,   -13,    -3,   -12,     2,
-     -13,   -13,    -9,    -9,    -9,    -9,    -9,    -5,    -5,     2,
-       2,     2
+     -12,    41,   -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12,
+     -12,    60,    60,    60,    60,   -12,    -9,    -8,    48,    -7,
+      53,   106,   167,   128,   128,   128,   -12,   -12,   -12,   128,
+     -12,   -12,    83,   -12,    60,    60,    60,    60,    60,    60,
+      60,    60,    60,    60,    60,    60,    60,    60,    60,    60,
+      60,    60,   -12,   -12,    60,    60,   -12,   148,   148,   167,
+     128,   128,   128,   128,   128,   128,   128,   128,   128,   128,
+     128,   128,   128,   128,   128,   128,   128
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -573,21 +609,26 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,     8,     1,     7,     4,     8,     3,     0,     0,    13,
-       6,     5,     8,     8,     8,     8,     8,     9,    10,    11,
-      12,    14
+       2,    19,     1,    46,    12,    16,    47,    11,    13,    15,
+       4,    19,    19,    19,    19,     3,     0,     0,    19,     0,
+      19,     0,    24,    45,    39,    42,     6,     7,     8,    14,
+       9,    10,    17,     5,    19,    19,    19,    19,    19,    19,
+      19,    19,    19,    19,    19,    19,    19,    19,    19,    19,
+      19,    19,    40,    41,    19,    19,    18,    20,    21,    22,
+      23,    25,    26,    27,    28,    29,    30,    31,    32,    33,
+      34,    35,    36,    37,    38,    43,    44
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -13,   -13,   -13,   -13,     4
+     -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12,   -11
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     1,     6,     7,     8
+       0,     1,    15,    16,    17,    18,    19,    20,    21
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -595,39 +636,86 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       2,    11,    12,    13,    14,    15,     5,    16,     3,     9,
-      10,    14,    15,     4,    16,     5,    17,    18,    19,    20,
-      21,    16
+      22,    23,    24,    25,    26,    27,    30,    29,     0,    32,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    57,    58,    59,    60,    61,    62,    63,
+      64,    65,    66,    67,    68,    69,    70,    71,    72,    73,
+      74,     2,     0,    75,    76,     3,     4,     5,     6,     7,
+       8,     0,     3,     9,    10,     6,    11,     3,     0,     0,
+       6,    28,     0,    11,     3,     0,    31,     6,    11,     0,
+       0,     0,    12,    13,    14,    11,     0,     0,     0,    12,
+      13,    14,     0,     0,    12,    13,    14,     0,     0,     0,
+       0,    12,    13,    14,    56,     0,     0,    34,    35,    36,
+      37,    38,    39,    40,    41,    42,    43,    44,    45,    46,
+      47,    48,    49,    50,    51,    52,    53,    54,    55,    33,
+      34,    35,    36,    37,    38,    39,    40,    41,    42,    43,
+      44,    45,    46,    47,    48,    49,    50,    51,    52,    53,
+      54,    55,    34,    35,    36,    37,    38,    39,    40,    41,
+      42,    43,    44,    45,    46,    47,    48,    49,    50,    51,
+      52,    53,    54,    55,    36,    37,    38,    39,    40,    41,
+      42,    43,    44,    45,    46,    47,    48,    49,    50,    51,
+      52,    53,    54,    55,    37,    38,    39,    40,    41,    42,
+      43,    44,    45,    46,    47,    48,    49,    50,    51,    52,
+      53,    54,    55
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,    13,    14,    15,    16,    17,    15,    19,     8,     5,
-      13,    16,    17,    13,    19,    15,    12,    13,    14,    15,
-      16,    19
+      11,    12,    13,    14,    13,    13,    13,    18,    -1,    20,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    34,    35,    36,    37,    38,    39,    40,
+      41,    42,    43,    44,    45,    46,    47,    48,    49,    50,
+      51,     0,    -1,    54,    55,     4,     5,     6,     7,     8,
+       9,    -1,     4,    12,    13,     7,    15,     4,    -1,    -1,
+       7,    13,    -1,    15,     4,    -1,    13,     7,    15,    -1,
+      -1,    -1,    31,    32,    33,    15,    -1,    -1,    -1,    31,
+      32,    33,    -1,    -1,    31,    32,    33,    -1,    -1,    -1,
+      -1,    31,    32,    33,    11,    -1,    -1,    14,    15,    16,
+      17,    18,    19,    20,    21,    22,    23,    24,    25,    26,
+      27,    28,    29,    30,    31,    32,    33,    34,    35,    13,
+      14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
+      24,    25,    26,    27,    28,    29,    30,    31,    32,    33,
+      34,    35,    14,    15,    16,    17,    18,    19,    20,    21,
+      22,    23,    24,    25,    26,    27,    28,    29,    30,    31,
+      32,    33,    34,    35,    16,    17,    18,    19,    20,    21,
+      22,    23,    24,    25,    26,    27,    28,    29,    30,    31,
+      32,    33,    34,    35,    17,    18,    19,    20,    21,    22,
+      23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
+      33,    34,    35
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    21,     0,     8,    13,    15,    22,    23,    24,    24,
-      13,    13,    14,    15,    16,    17,    19,    24,    24,    24,
-      24,    24
+       0,    39,     0,     4,     5,     6,     7,     8,     9,    12,
+      13,    15,    31,    32,    33,    40,    41,    42,    43,    44,
+      45,    46,    46,    46,    46,    46,    13,    13,    13,    46,
+      13,    13,    46,    13,    14,    15,    16,    17,    18,    19,
+      20,    21,    22,    23,    24,    25,    26,    27,    28,    29,
+      30,    31,    32,    33,    34,    35,    11,    46,    46,    46,
+      46,    46,    46,    46,    46,    46,    46,    46,    46,    46,
+      46,    46,    46,    46,    46,    46,    46
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    20,    21,    21,    22,    22,    22,    23,    24,    24,
-      24,    24,    24,    24,    24
+       0,    38,    39,    39,    40,    40,    40,    40,    40,    40,
+      40,    41,    42,    43,    43,    44,    45,    45,    45,    46,
+      46,    46,    46,    46,    46,    46,    46,    46,    46,    46,
+      46,    46,    46,    46,    46,    46,    46,    46,    46,    46,
+      46,    46,    46,    46,    46,    46,    46,    46
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     0,     2,     1,     2,     2,     1,     0,     3,
-       3,     3,     3,     2,     3
+       0,     2,     0,     2,     1,     2,     2,     2,     2,     2,
+       2,     1,     1,     1,     2,     1,     1,     2,     3,     0,
+       3,     3,     3,     3,     2,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     2,
+       2,     2,     2,     3,     3,     2,     1,     1
 };
 
 
@@ -1091,61 +1179,241 @@ yyreduce:
   switch (yyn)
     {
   case 5: /* Line: Expression END  */
-#line 34 "simplebison.y"
-                      { printf("Result: %f\n", yyvsp[-1]); }
-#line 1097 "simplebison.tab.c"
+#line 36 "simplebison.y"
+                      { printf("Result: %s\n", yyvsp[-1]); }
+#line 1185 "simplebison.tab.c"
     break;
 
   case 6: /* Line: Comments END  */
-#line 35 "simplebison.y"
-                      { printf("Comment: %s\n", yyvsp[-1]);}
-#line 1103 "simplebison.tab.c"
+#line 37 "simplebison.y"
+                      { printf("Comment: %s\n",yyvsp[-1]); }
+#line 1191 "simplebison.tab.c"
     break;
 
-  case 7: /* Comments: COMMENT  */
+  case 7: /* Line: Keywords END  */
+#line 38 "simplebison.y"
+                      { printf("Keyword: %s\n",yyvsp[-1]); }
+#line 1197 "simplebison.tab.c"
+    break;
+
+  case 8: /* Line: Strings END  */
 #line 39 "simplebison.y"
-             { (void)truncatehash(yyvsp[0]); yyval=yyvsp[0]; }
-#line 1109 "simplebison.tab.c"
+                      { printf("Strings: %s\n",yyvsp[-1]); }
+#line 1203 "simplebison.tab.c"
     break;
 
-  case 9: /* Expression: Expression PLUS Expression  */
-#line 43 "simplebison.y"
-                             { yyval=yyvsp[-2]+yyvsp[0]; }
-#line 1115 "simplebison.tab.c"
+  case 9: /* Line: Error END  */
+#line 40 "simplebison.y"
+                      { yyerror(yyvsp[-1]);                }
+#line 1209 "simplebison.tab.c"
     break;
 
-  case 10: /* Expression: Expression MINUS Expression  */
-#line 44 "simplebison.y"
-                              { yyval=yyvsp[-2]-yyvsp[0]; }
-#line 1121 "simplebison.tab.c"
+  case 10: /* Line: Variable END  */
+#line 41 "simplebison.y"
+                      { printf("Variable: %s\n", yyvsp[-1]);}
+#line 1215 "simplebison.tab.c"
     break;
 
-  case 11: /* Expression: Expression TIMES Expression  */
+  case 11: /* Comments: COMMENT  */
 #line 45 "simplebison.y"
-                              { yyval=yyvsp[-2]*yyvsp[0]; }
-#line 1127 "simplebison.tab.c"
+             { (void)truncatehash(yyvsp[0]); yyval=yyvsp[0]; }
+#line 1221 "simplebison.tab.c"
     break;
 
-  case 12: /* Expression: Expression DIVIDE Expression  */
-#line 46 "simplebison.y"
-                               { yyval=yyvsp[-2]/yyvsp[0]; }
-#line 1133 "simplebison.tab.c"
+  case 12: /* Keywords: KEYWORD  */
+#line 49 "simplebison.y"
+             {yyval=yyvsp[0];}
+#line 1227 "simplebison.tab.c"
     break;
 
-  case 13: /* Expression: MINUS Expression  */
-#line 47 "simplebison.y"
-                             { yyval=-yyvsp[0]; }
-#line 1139 "simplebison.tab.c"
+  case 13: /* Strings: STRING  */
+#line 53 "simplebison.y"
+            {yyval=yyvsp[0];}
+#line 1233 "simplebison.tab.c"
     break;
 
-  case 14: /* Expression: Expression POWER Expression  */
-#line 48 "simplebison.y"
-                              { yyval=pow(yyvsp[-2],yyvsp[0]); }
-#line 1145 "simplebison.tab.c"
+  case 15: /* Error: ERROR  */
+#line 58 "simplebison.y"
+            { yyval=yyvsp[0]; }
+#line 1239 "simplebison.tab.c"
+    break;
+
+  case 16: /* Variable: IDENTIFIER  */
+#line 62 "simplebison.y"
+                {yyval=yyvsp[0];}
+#line 1245 "simplebison.tab.c"
+    break;
+
+  case 20: /* Expression: Expression PLUS Expression  */
+#line 68 "simplebison.y"
+                             { gcvt(atof(yyvsp[-2])+atof(yyvsp[0]), 10, yyval); }
+#line 1251 "simplebison.tab.c"
+    break;
+
+  case 21: /* Expression: Expression MINUS Expression  */
+#line 69 "simplebison.y"
+                             { gcvt(atof(yyvsp[-2])-atof(yyvsp[0]), 10, yyval); }
+#line 1257 "simplebison.tab.c"
+    break;
+
+  case 22: /* Expression: Expression MULTIPLY Expression  */
+#line 70 "simplebison.y"
+                                 { gcvt(atof(yyvsp[-2])*atof(yyvsp[0]), 10, yyval); }
+#line 1263 "simplebison.tab.c"
+    break;
+
+  case 23: /* Expression: Expression DIV Expression  */
+#line 71 "simplebison.y"
+                            { gcvt(atof(yyvsp[-2])/atof(yyvsp[0]), 10, yyval); }
+#line 1269 "simplebison.tab.c"
+    break;
+
+  case 24: /* Expression: MINUS Expression  */
+#line 72 "simplebison.y"
+                             { gcvt(-atof(yyvsp[0]), 10, yyval); }
+#line 1275 "simplebison.tab.c"
+    break;
+
+  case 25: /* Expression: Expression MOD Expression  */
+#line 73 "simplebison.y"
+                            {gcvt(fmod(atof(yyvsp[-2]), atof(yyvsp[0])), 10, yyval);}
+#line 1281 "simplebison.tab.c"
+    break;
+
+  case 26: /* Expression: Expression DOUBLE_EQUAL Expression  */
+#line 74 "simplebison.y"
+                                     {gcvt(atof(yyvsp[-2]) == atof(yyvsp[0]), 10, yyval);}
+#line 1287 "simplebison.tab.c"
+    break;
+
+  case 27: /* Expression: Expression NOT_EQUAL Expression  */
+#line 75 "simplebison.y"
+                                  {gcvt(atof(yyvsp[-2]) != atof(yyvsp[0]), 10, yyval);}
+#line 1293 "simplebison.tab.c"
+    break;
+
+  case 28: /* Expression: Expression SMALL_EQUAL Expression  */
+#line 76 "simplebison.y"
+                                    {gcvt(atof(yyvsp[-2])<=atof(yyvsp[0]), 10, yyval);}
+#line 1299 "simplebison.tab.c"
+    break;
+
+  case 29: /* Expression: Expression BIG_EQUAL Expression  */
+#line 77 "simplebison.y"
+                                  {gcvt(atof(yyvsp[-2])>=atof(yyvsp[0]), 10, yyval);}
+#line 1305 "simplebison.tab.c"
+    break;
+
+  case 30: /* Expression: Expression SMALL Expression  */
+#line 78 "simplebison.y"
+                              {gcvt(atof(yyvsp[-2])<atof(yyvsp[0]), 10, yyval);}
+#line 1311 "simplebison.tab.c"
+    break;
+
+  case 31: /* Expression: Expression BIG Expression  */
+#line 79 "simplebison.y"
+                            {gcvt(atof(yyvsp[-2])>atof(yyvsp[0]), 10, yyval);}
+#line 1317 "simplebison.tab.c"
+    break;
+
+  case 32: /* Expression: Expression AND Expression  */
+#line 80 "simplebison.y"
+                            {gcvt(atof(yyvsp[-2])&&atof(yyvsp[0]), 10, yyval);}
+#line 1323 "simplebison.tab.c"
+    break;
+
+  case 33: /* Expression: Expression BIT_OR Expression  */
+#line 81 "simplebison.y"
+                               {gcvt((int)atof(yyvsp[-2]) | (int)atof(yyvsp[0]), 10, yyval);}
+#line 1329 "simplebison.tab.c"
+    break;
+
+  case 34: /* Expression: Expression OR Expression  */
+#line 82 "simplebison.y"
+                           {gcvt(atof(yyvsp[-2])||atof(yyvsp[0]), 10, yyval);}
+#line 1335 "simplebison.tab.c"
+    break;
+
+  case 35: /* Expression: Expression PLUS_EQUAL Expression  */
+#line 83 "simplebison.y"
+                                   {gcvt(atof(yyvsp[-2]) + atof(yyvsp[0]), 10, yyval);}
+#line 1341 "simplebison.tab.c"
+    break;
+
+  case 36: /* Expression: Expression MULT_EQUAL Expression  */
+#line 84 "simplebison.y"
+                                   {gcvt(atof(yyvsp[-2]) * atof(yyvsp[0]), 10, yyval);}
+#line 1347 "simplebison.tab.c"
+    break;
+
+  case 37: /* Expression: Expression DIV_EQUAL Expression  */
+#line 85 "simplebison.y"
+                                  {gcvt(atof(yyvsp[-2]) / atof(yyvsp[0]), 10, yyval);}
+#line 1353 "simplebison.tab.c"
+    break;
+
+  case 38: /* Expression: Expression NOT Expression  */
+#line 86 "simplebison.y"
+                            {gcvt(!atof(yyvsp[-2]), 10, yyval);}
+#line 1359 "simplebison.tab.c"
+    break;
+
+  case 39: /* Expression: DOUBLE_PLUS Expression  */
+#line 87 "simplebison.y"
+                         {gcvt(atof(++yyvsp[-1]), 10, yyval);}
+#line 1365 "simplebison.tab.c"
+    break;
+
+  case 40: /* Expression: Expression DOUBLE_PLUS  */
+#line 88 "simplebison.y"
+                        {gcvt(atof(yyvsp[-1]++), 10, yyval);}
+#line 1371 "simplebison.tab.c"
+    break;
+
+  case 41: /* Expression: Expression DOUBLE_MINUS  */
+#line 89 "simplebison.y"
+                         { gcvt(atof(yyvsp[-1]--), 10, yyval);}
+#line 1377 "simplebison.tab.c"
+    break;
+
+  case 42: /* Expression: DOUBLE_MINUS Expression  */
+#line 90 "simplebison.y"
+                           {gcvt(atof(--yyvsp[-1]), 10, yyval);}
+#line 1383 "simplebison.tab.c"
+    break;
+
+  case 43: /* Expression: Expression BIT_AND Expression  */
+#line 91 "simplebison.y"
+                                {gcvt((int)atof(yyvsp[-2]) & (int)atof(yyvsp[0]), 10, yyval);}
+#line 1389 "simplebison.tab.c"
+    break;
+
+  case 44: /* Expression: Expression EQUAL Expression  */
+#line 92 "simplebison.y"
+                              {gcvt(atof(yyvsp[-2]) = atof(yyvsp[0]), 10, yyval);}
+#line 1395 "simplebison.tab.c"
+    break;
+
+  case 45: /* Expression: NOT Expression  */
+#line 93 "simplebison.y"
+                { gcvt(!atof(yyvsp[0]), 10, yyval);}
+#line 1401 "simplebison.tab.c"
+    break;
+
+  case 46: /* Expression: INTEGER  */
+#line 94 "simplebison.y"
+          { gcvt(atoi(yyvsp[0]), 10, yyval); }
+#line 1407 "simplebison.tab.c"
+    break;
+
+  case 47: /* Expression: FLOAT  */
+#line 95 "simplebison.y"
+          { gcvt(atof(yyvsp[0]), 10, yyval); }
+#line 1413 "simplebison.tab.c"
     break;
 
 
-#line 1149 "simplebison.tab.c"
+#line 1417 "simplebison.tab.c"
 
       default: break;
     }
@@ -1338,7 +1606,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 51 "simplebison.y"
+#line 98 "simplebison.y"
 
 
 void truncatehash(char* str) {
