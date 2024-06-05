@@ -74,21 +74,14 @@ extern int yydebug;
     NOT_EQUAL = 275,               /* NOT_EQUAL  */
     SMALL_EQUAL = 276,             /* SMALL_EQUAL  */
     BIG_EQUAL = 277,               /* BIG_EQUAL  */
-    SMALL = 278,                   /* SMALL  */
-    BIG = 279,                     /* BIG  */
-    AND = 280,                     /* AND  */
-    BIT_OR = 281,                  /* BIT_OR  */
-    OR = 282,                      /* OR  */
-    PLUS_EQUAL = 283,              /* PLUS_EQUAL  */
-    MULT_EQUAL = 284,              /* MULT_EQUAL  */
-    DIV_EQUAL = 285,               /* DIV_EQUAL  */
-    NOT = 286,                     /* NOT  */
-    DOUBLE_PLUS = 287,             /* DOUBLE_PLUS  */
-    DOUBLE_MINUS = 288,            /* DOUBLE_MINUS  */
-    BIT_AND = 289,                 /* BIT_AND  */
-    EQUAL = 290,                   /* EQUAL  */
-    DIVIDE = 291,                  /* DIVIDE  */
-    NEG = 292                      /* NEG  */
+    PLUS_EQUAL = 278,              /* PLUS_EQUAL  */
+    MULT_EQUAL = 279,              /* MULT_EQUAL  */
+    DIV_EQUAL = 280,               /* DIV_EQUAL  */
+    DOUBLE_PLUS = 281,             /* DOUBLE_PLUS  */
+    DOUBLE_MINUS = 282,            /* DOUBLE_MINUS  */
+    EQUAL = 283,                   /* EQUAL  */
+    DIVIDE = 284,                  /* DIVIDE  */
+    NEG = 285                      /* NEG  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

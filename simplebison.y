@@ -15,9 +15,9 @@ int yyerror(char *);
 %}
 
 %token WHITE_SPACES INTEGER KEYWORD IDENTIFIER FLOAT COMMENT STRING OPERATOR DELIMITER ERROR
-%token END PLUS MINUS MULTIPLY DIV MOD DOUBLE_EQUAL NOT_EQUAL SMALL_EQUAL BIG_EQUAL SMALL
-%token BIG AND BIT_OR OR PLUS_EQUAL MULT_EQUAL DIV_EQUAL NOT
-%token DOUBLE_PLUS DOUBLE_MINUS BIT_AND EQUAL 
+%token END PLUS MINUS MULTIPLY DIV MOD DOUBLE_EQUAL NOT_EQUAL SMALL_EQUAL BIG_EQUAL 
+%token PLUS_EQUAL MULT_EQUAL DIV_EQUAL
+%token DOUBLE_PLUS DOUBLE_MINUS EQUAL 
 
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
@@ -42,7 +42,7 @@ Line:
 ;
 
 Comments:
-     COMMENT { (void)truncatehash($1); $$=$1; }
+     COMMENT {  $$=$1; }
 ;
 
 Keywords:
@@ -75,33 +75,30 @@ Expression:
 | Expression NOT_EQUAL Expression {gcvt(atof($1) != atof($3), 10, $$);}
 | Expression SMALL_EQUAL Expression {gcvt(atof($1)<=atof($3), 10, $$);}
 | Expression BIG_EQUAL Expression {gcvt(atof($1)>=atof($3), 10, $$);}
-| Expression SMALL Expression {gcvt(atof($1)<atof($3), 10, $$);}
-| Expression BIG Expression {gcvt(atof($1)>atof($3), 10, $$);}
-| Expression AND Expression {gcvt(atof($1)&&atof($3), 10, $$);}
-| Expression BIT_OR Expression {gcvt((int)atof($1) | (int)atof($3), 10, $$);}
-| Expression OR Expression {gcvt(atof($1)||atof($3), 10, $$);}
+| Expression "<" Expression {gcvt(atof($1)<atof($3), 10, $$);}
+| Expression ">" Expression {gcvt(atof($1)>atof($3), 10, $$);}
+| Expression "&&" Expression {gcvt(atof($1)&&atof($3), 10, $$);}
+| Expression "|" Expression {gcvt((int)atof($1) | (int)atof($3), 10, $$);}
+| Expression "||" Expression {gcvt(atof($1)||atof($3), 10, $$);}
 | Expression PLUS_EQUAL Expression {gcvt(atof($1) + atof($3), 10, $$);}
 | Expression MULT_EQUAL Expression {gcvt(atof($1) * atof($3), 10, $$);}
 | Expression DIV_EQUAL Expression {gcvt(atof($1) / atof($3), 10, $$);}
-| Expression NOT Expression {gcvt(!atof($1), 10, $$);}
+| Expression "!" Expression {gcvt(!atof($1), 10, $$);}
 | DOUBLE_PLUS Expression {gcvt(atof(++$1), 10, $$);}
 | Expression DOUBLE_PLUS{gcvt(atof($1++), 10, $$);}
 | Expression DOUBLE_MINUS{ gcvt(atof($1--), 10, $$);}
 | DOUBLE_MINUS Expression  {gcvt(atof(--$1), 10, $$);}
-| Expression BIT_AND Expression {gcvt((int)atof($1) & (int)atof($3), 10, $$);}
-| Expression EQUAL Expression {gcvt(atof($1) = atof($3), 10, $$);}
-| NOT Expression{ gcvt(!atof($2), 10, $$);}
+| Expression "&" Expression {gcvt((int)atof($1) & (int)atof($3), 10, $$);}
+| Expression EQUAL Expression {
+    double result = atof($3);
+    gcvt(result, 10, $$);
+}
+| "!" Expression{ gcvt(!atof($2), 10, $$);}
 | INTEGER { gcvt(atoi($1), 10, $$); }
 | FLOAT   { gcvt(atof($1), 10, $$); }
 ; 
 
 %%
-
-void truncatehash(char* str) {
-     size_t len = strlen(str);
-     memmove(str, str + 1, len - 1);
-     memset(str+len-1, 0, 1);
-}
 
 int yyerror(char *s) {
   printf("%s\n", s);

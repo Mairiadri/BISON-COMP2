@@ -130,21 +130,21 @@ enum yysymbol_kind_t
   YYSYMBOL_NOT_EQUAL = 20,                 /* NOT_EQUAL  */
   YYSYMBOL_SMALL_EQUAL = 21,               /* SMALL_EQUAL  */
   YYSYMBOL_BIG_EQUAL = 22,                 /* BIG_EQUAL  */
-  YYSYMBOL_SMALL = 23,                     /* SMALL  */
-  YYSYMBOL_BIG = 24,                       /* BIG  */
-  YYSYMBOL_AND = 25,                       /* AND  */
-  YYSYMBOL_BIT_OR = 26,                    /* BIT_OR  */
-  YYSYMBOL_OR = 27,                        /* OR  */
-  YYSYMBOL_PLUS_EQUAL = 28,                /* PLUS_EQUAL  */
-  YYSYMBOL_MULT_EQUAL = 29,                /* MULT_EQUAL  */
-  YYSYMBOL_DIV_EQUAL = 30,                 /* DIV_EQUAL  */
-  YYSYMBOL_NOT = 31,                       /* NOT  */
-  YYSYMBOL_DOUBLE_PLUS = 32,               /* DOUBLE_PLUS  */
-  YYSYMBOL_DOUBLE_MINUS = 33,              /* DOUBLE_MINUS  */
-  YYSYMBOL_BIT_AND = 34,                   /* BIT_AND  */
-  YYSYMBOL_EQUAL = 35,                     /* EQUAL  */
-  YYSYMBOL_DIVIDE = 36,                    /* DIVIDE  */
-  YYSYMBOL_NEG = 37,                       /* NEG  */
+  YYSYMBOL_PLUS_EQUAL = 23,                /* PLUS_EQUAL  */
+  YYSYMBOL_MULT_EQUAL = 24,                /* MULT_EQUAL  */
+  YYSYMBOL_DIV_EQUAL = 25,                 /* DIV_EQUAL  */
+  YYSYMBOL_DOUBLE_PLUS = 26,               /* DOUBLE_PLUS  */
+  YYSYMBOL_DOUBLE_MINUS = 27,              /* DOUBLE_MINUS  */
+  YYSYMBOL_EQUAL = 28,                     /* EQUAL  */
+  YYSYMBOL_DIVIDE = 29,                    /* DIVIDE  */
+  YYSYMBOL_NEG = 30,                       /* NEG  */
+  YYSYMBOL_31_ = 31,                       /* "<"  */
+  YYSYMBOL_32_ = 32,                       /* ">"  */
+  YYSYMBOL_33_ = 33,                       /* "&&"  */
+  YYSYMBOL_34_ = 34,                       /* "|"  */
+  YYSYMBOL_35_ = 35,                       /* "||"  */
+  YYSYMBOL_36_ = 36,                       /* "!"  */
+  YYSYMBOL_37_ = 37,                       /* "&"  */
   YYSYMBOL_YYACCEPT = 38,                  /* $accept  */
   YYSYMBOL_Input = 39,                     /* Input  */
   YYSYMBOL_Line = 40,                      /* Line  */
@@ -481,7 +481,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   202
+#define YYLAST   228
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  38
@@ -547,7 +547,7 @@ static const yytype_int8 yyrline[] =
       41,    45,    49,    53,    54,    58,    62,    63,    64,    67,
       68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
       78,    79,    80,    81,    82,    83,    84,    85,    86,    87,
-      88,    89,    90,    91,    92,    93,    94,    95
+      88,    89,    90,    91,    92,    96,    97,    98
 };
 #endif
 
@@ -567,9 +567,9 @@ static const char *const yytname[] =
   "INTEGER", "KEYWORD", "IDENTIFIER", "FLOAT", "COMMENT", "STRING",
   "OPERATOR", "DELIMITER", "ERROR", "END", "PLUS", "MINUS", "MULTIPLY",
   "DIV", "MOD", "DOUBLE_EQUAL", "NOT_EQUAL", "SMALL_EQUAL", "BIG_EQUAL",
-  "SMALL", "BIG", "AND", "BIT_OR", "OR", "PLUS_EQUAL", "MULT_EQUAL",
-  "DIV_EQUAL", "NOT", "DOUBLE_PLUS", "DOUBLE_MINUS", "BIT_AND", "EQUAL",
-  "DIVIDE", "NEG", "$accept", "Input", "Line", "Comments", "Keywords",
+  "PLUS_EQUAL", "MULT_EQUAL", "DIV_EQUAL", "DOUBLE_PLUS", "DOUBLE_MINUS",
+  "EQUAL", "DIVIDE", "NEG", "\"<\"", "\">\"", "\"&&\"", "\"|\"", "\"||\"",
+  "\"!\"", "\"&\"", "$accept", "Input", "Line", "Comments", "Keywords",
   "Strings", "Error", "Variable", "Expression", YY_NULLPTR
 };
 
@@ -594,14 +594,14 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -12,    41,   -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12,
-     -12,    60,    60,    60,    60,   -12,    -9,    -8,    48,    -7,
-      53,   106,   167,   128,   128,   128,   -12,   -12,   -12,   128,
-     -12,   -12,    83,   -12,    60,    60,    60,    60,    60,    60,
-      60,    60,    60,    60,    60,    60,    60,    60,    60,    60,
-      60,    60,   -12,   -12,    60,    60,   -12,   148,   148,   167,
-     128,   128,   128,   128,   128,   128,   128,   128,   128,   128,
-     128,   128,   128,   128,   128,   128,   128
+     -12,    45,   -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12,
+     -12,    76,    76,    76,    76,   -12,    -9,    -8,    52,    -7,
+      69,   124,   191,   148,   148,   148,   -12,   -12,   -12,   148,
+     -12,   -12,    99,   -12,    76,    76,    76,    76,    76,    76,
+      76,    76,    76,    76,    76,    76,   -12,   -12,    76,    76,
+      76,    76,    76,    76,    76,    76,   -12,   170,   170,   191,
+     148,   148,   148,   148,   148,   148,   148,   148,   148,   148,
+     148,   148,   148,   148,   148,   148,   148
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -611,12 +611,12 @@ static const yytype_int8 yydefact[] =
 {
        2,    19,     1,    46,    12,    16,    47,    11,    13,    15,
        4,    19,    19,    19,    19,     3,     0,     0,    19,     0,
-      19,     0,    24,    45,    39,    42,     6,     7,     8,    14,
+      19,     0,    24,    39,    42,    45,     6,     7,     8,    14,
        9,    10,    17,     5,    19,    19,    19,    19,    19,    19,
-      19,    19,    19,    19,    19,    19,    19,    19,    19,    19,
-      19,    19,    40,    41,    19,    19,    18,    20,    21,    22,
-      23,    25,    26,    27,    28,    29,    30,    31,    32,    33,
-      34,    35,    36,    37,    38,    43,    44
+      19,    19,    19,    19,    19,    19,    40,    41,    19,    19,
+      19,    19,    19,    19,    19,    19,    18,    20,    21,    22,
+      23,    25,    26,    27,    28,    29,    35,    36,    37,    44,
+      30,    31,    32,    33,    34,    38,    43
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -639,24 +639,26 @@ static const yytype_int8 yytable[] =
       22,    23,    24,    25,    26,    27,    30,    29,     0,    32,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,    57,    58,    59,    60,    61,    62,    63,
-      64,    65,    66,    67,    68,    69,    70,    71,    72,    73,
-      74,     2,     0,    75,    76,     3,     4,     5,     6,     7,
-       8,     0,     3,     9,    10,     6,    11,     3,     0,     0,
-       6,    28,     0,    11,     3,     0,    31,     6,    11,     0,
-       0,     0,    12,    13,    14,    11,     0,     0,     0,    12,
-      13,    14,     0,     0,    12,    13,    14,     0,     0,     0,
-       0,    12,    13,    14,    56,     0,     0,    34,    35,    36,
-      37,    38,    39,    40,    41,    42,    43,    44,    45,    46,
-      47,    48,    49,    50,    51,    52,    53,    54,    55,    33,
-      34,    35,    36,    37,    38,    39,    40,    41,    42,    43,
-      44,    45,    46,    47,    48,    49,    50,    51,    52,    53,
+      64,    65,    66,    67,    68,     0,     0,    69,    70,    71,
+      72,    73,    74,    75,    76,     2,     0,     0,     0,     3,
+       4,     5,     6,     7,     8,     0,     3,     9,    10,     6,
+      11,     0,     0,     0,     0,    28,     0,    11,     0,     0,
+       0,    12,    13,     3,     0,     0,     6,     0,    12,    13,
+       3,    14,    31,     6,    11,     0,     0,     0,    14,     0,
+       0,    11,     0,     0,     0,    12,    13,     0,     0,     0,
+       0,     0,    12,    13,     0,    14,     0,     0,     0,     0,
+      56,     0,    14,    34,    35,    36,    37,    38,    39,    40,
+      41,    42,    43,    44,    45,    46,    47,    48,     0,     0,
+      49,    50,    51,    52,    53,    54,    55,    33,    34,    35,
+      36,    37,    38,    39,    40,    41,    42,    43,    44,    45,
+      46,    47,    48,     0,     0,    49,    50,    51,    52,    53,
       54,    55,    34,    35,    36,    37,    38,    39,    40,    41,
-      42,    43,    44,    45,    46,    47,    48,    49,    50,    51,
-      52,    53,    54,    55,    36,    37,    38,    39,    40,    41,
-      42,    43,    44,    45,    46,    47,    48,    49,    50,    51,
-      52,    53,    54,    55,    37,    38,    39,    40,    41,    42,
-      43,    44,    45,    46,    47,    48,    49,    50,    51,    52,
-      53,    54,    55
+      42,    43,    44,    45,    46,    47,    48,     0,     0,    49,
+      50,    51,    52,    53,    54,    55,    36,    37,    38,    39,
+      40,    41,    42,    43,    44,    45,    46,    47,    48,     0,
+       0,    49,    50,    51,    52,    53,    54,    55,    37,    38,
+      39,    40,    41,    42,    43,    44,    45,    46,    47,    48,
+       0,     0,    49,    50,    51,    52,    53,    54,    55
 };
 
 static const yytype_int8 yycheck[] =
@@ -664,24 +666,26 @@ static const yytype_int8 yycheck[] =
       11,    12,    13,    14,    13,    13,    13,    18,    -1,    20,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    34,    35,    36,    37,    38,    39,    40,
-      41,    42,    43,    44,    45,    46,    47,    48,    49,    50,
-      51,     0,    -1,    54,    55,     4,     5,     6,     7,     8,
-       9,    -1,     4,    12,    13,     7,    15,     4,    -1,    -1,
-       7,    13,    -1,    15,     4,    -1,    13,     7,    15,    -1,
-      -1,    -1,    31,    32,    33,    15,    -1,    -1,    -1,    31,
-      32,    33,    -1,    -1,    31,    32,    33,    -1,    -1,    -1,
-      -1,    31,    32,    33,    11,    -1,    -1,    14,    15,    16,
-      17,    18,    19,    20,    21,    22,    23,    24,    25,    26,
-      27,    28,    29,    30,    31,    32,    33,    34,    35,    13,
-      14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
-      24,    25,    26,    27,    28,    29,    30,    31,    32,    33,
-      34,    35,    14,    15,    16,    17,    18,    19,    20,    21,
-      22,    23,    24,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    34,    35,    16,    17,    18,    19,    20,    21,
-      22,    23,    24,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    34,    35,    17,    18,    19,    20,    21,    22,
-      23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
-      33,    34,    35
+      41,    42,    43,    44,    45,    -1,    -1,    48,    49,    50,
+      51,    52,    53,    54,    55,     0,    -1,    -1,    -1,     4,
+       5,     6,     7,     8,     9,    -1,     4,    12,    13,     7,
+      15,    -1,    -1,    -1,    -1,    13,    -1,    15,    -1,    -1,
+      -1,    26,    27,     4,    -1,    -1,     7,    -1,    26,    27,
+       4,    36,    13,     7,    15,    -1,    -1,    -1,    36,    -1,
+      -1,    15,    -1,    -1,    -1,    26,    27,    -1,    -1,    -1,
+      -1,    -1,    26,    27,    -1,    36,    -1,    -1,    -1,    -1,
+      11,    -1,    36,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    23,    24,    25,    26,    27,    28,    -1,    -1,
+      31,    32,    33,    34,    35,    36,    37,    13,    14,    15,
+      16,    17,    18,    19,    20,    21,    22,    23,    24,    25,
+      26,    27,    28,    -1,    -1,    31,    32,    33,    34,    35,
+      36,    37,    14,    15,    16,    17,    18,    19,    20,    21,
+      22,    23,    24,    25,    26,    27,    28,    -1,    -1,    31,
+      32,    33,    34,    35,    36,    37,    16,    17,    18,    19,
+      20,    21,    22,    23,    24,    25,    26,    27,    28,    -1,
+      -1,    31,    32,    33,    34,    35,    36,    37,    17,    18,
+      19,    20,    21,    22,    23,    24,    25,    26,    27,    28,
+      -1,    -1,    31,    32,    33,    34,    35,    36,    37
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -689,11 +693,11 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,    39,     0,     4,     5,     6,     7,     8,     9,    12,
-      13,    15,    31,    32,    33,    40,    41,    42,    43,    44,
+      13,    15,    26,    27,    36,    40,    41,    42,    43,    44,
       45,    46,    46,    46,    46,    46,    13,    13,    13,    46,
       13,    13,    46,    13,    14,    15,    16,    17,    18,    19,
-      20,    21,    22,    23,    24,    25,    26,    27,    28,    29,
-      30,    31,    32,    33,    34,    35,    11,    46,    46,    46,
+      20,    21,    22,    23,    24,    25,    26,    27,    28,    31,
+      32,    33,    34,    35,    36,    37,    11,    46,    46,    46,
       46,    46,    46,    46,    46,    46,    46,    46,    46,    46,
       46,    46,    46,    46,    46,    46,    46
 };
@@ -1181,239 +1185,242 @@ yyreduce:
   case 5: /* Line: Expression END  */
 #line 36 "simplebison.y"
                       { printf("Result: %s\n", yyvsp[-1]); }
-#line 1185 "simplebison.tab.c"
+#line 1189 "simplebison.tab.c"
     break;
 
   case 6: /* Line: Comments END  */
 #line 37 "simplebison.y"
                       { printf("Comment: %s\n",yyvsp[-1]); }
-#line 1191 "simplebison.tab.c"
+#line 1195 "simplebison.tab.c"
     break;
 
   case 7: /* Line: Keywords END  */
 #line 38 "simplebison.y"
                       { printf("Keyword: %s\n",yyvsp[-1]); }
-#line 1197 "simplebison.tab.c"
+#line 1201 "simplebison.tab.c"
     break;
 
   case 8: /* Line: Strings END  */
 #line 39 "simplebison.y"
                       { printf("Strings: %s\n",yyvsp[-1]); }
-#line 1203 "simplebison.tab.c"
+#line 1207 "simplebison.tab.c"
     break;
 
   case 9: /* Line: Error END  */
 #line 40 "simplebison.y"
                       { yyerror(yyvsp[-1]);                }
-#line 1209 "simplebison.tab.c"
+#line 1213 "simplebison.tab.c"
     break;
 
   case 10: /* Line: Variable END  */
 #line 41 "simplebison.y"
                       { printf("Variable: %s\n", yyvsp[-1]);}
-#line 1215 "simplebison.tab.c"
+#line 1219 "simplebison.tab.c"
     break;
 
   case 11: /* Comments: COMMENT  */
 #line 45 "simplebison.y"
-             { (void)truncatehash(yyvsp[0]); yyval=yyvsp[0]; }
-#line 1221 "simplebison.tab.c"
+             {  yyval=yyvsp[0]; }
+#line 1225 "simplebison.tab.c"
     break;
 
   case 12: /* Keywords: KEYWORD  */
 #line 49 "simplebison.y"
              {yyval=yyvsp[0];}
-#line 1227 "simplebison.tab.c"
+#line 1231 "simplebison.tab.c"
     break;
 
   case 13: /* Strings: STRING  */
 #line 53 "simplebison.y"
             {yyval=yyvsp[0];}
-#line 1233 "simplebison.tab.c"
+#line 1237 "simplebison.tab.c"
     break;
 
   case 15: /* Error: ERROR  */
 #line 58 "simplebison.y"
             { yyval=yyvsp[0]; }
-#line 1239 "simplebison.tab.c"
+#line 1243 "simplebison.tab.c"
     break;
 
   case 16: /* Variable: IDENTIFIER  */
 #line 62 "simplebison.y"
                 {yyval=yyvsp[0];}
-#line 1245 "simplebison.tab.c"
+#line 1249 "simplebison.tab.c"
     break;
 
   case 20: /* Expression: Expression PLUS Expression  */
 #line 68 "simplebison.y"
                              { gcvt(atof(yyvsp[-2])+atof(yyvsp[0]), 10, yyval); }
-#line 1251 "simplebison.tab.c"
+#line 1255 "simplebison.tab.c"
     break;
 
   case 21: /* Expression: Expression MINUS Expression  */
 #line 69 "simplebison.y"
                              { gcvt(atof(yyvsp[-2])-atof(yyvsp[0]), 10, yyval); }
-#line 1257 "simplebison.tab.c"
+#line 1261 "simplebison.tab.c"
     break;
 
   case 22: /* Expression: Expression MULTIPLY Expression  */
 #line 70 "simplebison.y"
                                  { gcvt(atof(yyvsp[-2])*atof(yyvsp[0]), 10, yyval); }
-#line 1263 "simplebison.tab.c"
+#line 1267 "simplebison.tab.c"
     break;
 
   case 23: /* Expression: Expression DIV Expression  */
 #line 71 "simplebison.y"
                             { gcvt(atof(yyvsp[-2])/atof(yyvsp[0]), 10, yyval); }
-#line 1269 "simplebison.tab.c"
+#line 1273 "simplebison.tab.c"
     break;
 
   case 24: /* Expression: MINUS Expression  */
 #line 72 "simplebison.y"
                              { gcvt(-atof(yyvsp[0]), 10, yyval); }
-#line 1275 "simplebison.tab.c"
+#line 1279 "simplebison.tab.c"
     break;
 
   case 25: /* Expression: Expression MOD Expression  */
 #line 73 "simplebison.y"
                             {gcvt(fmod(atof(yyvsp[-2]), atof(yyvsp[0])), 10, yyval);}
-#line 1281 "simplebison.tab.c"
+#line 1285 "simplebison.tab.c"
     break;
 
   case 26: /* Expression: Expression DOUBLE_EQUAL Expression  */
 #line 74 "simplebison.y"
                                      {gcvt(atof(yyvsp[-2]) == atof(yyvsp[0]), 10, yyval);}
-#line 1287 "simplebison.tab.c"
+#line 1291 "simplebison.tab.c"
     break;
 
   case 27: /* Expression: Expression NOT_EQUAL Expression  */
 #line 75 "simplebison.y"
                                   {gcvt(atof(yyvsp[-2]) != atof(yyvsp[0]), 10, yyval);}
-#line 1293 "simplebison.tab.c"
+#line 1297 "simplebison.tab.c"
     break;
 
   case 28: /* Expression: Expression SMALL_EQUAL Expression  */
 #line 76 "simplebison.y"
                                     {gcvt(atof(yyvsp[-2])<=atof(yyvsp[0]), 10, yyval);}
-#line 1299 "simplebison.tab.c"
+#line 1303 "simplebison.tab.c"
     break;
 
   case 29: /* Expression: Expression BIG_EQUAL Expression  */
 #line 77 "simplebison.y"
                                   {gcvt(atof(yyvsp[-2])>=atof(yyvsp[0]), 10, yyval);}
-#line 1305 "simplebison.tab.c"
+#line 1309 "simplebison.tab.c"
     break;
 
-  case 30: /* Expression: Expression SMALL Expression  */
+  case 30: /* Expression: Expression "<" Expression  */
 #line 78 "simplebison.y"
-                              {gcvt(atof(yyvsp[-2])<atof(yyvsp[0]), 10, yyval);}
-#line 1311 "simplebison.tab.c"
+                            {gcvt(atof(yyvsp[-2])<atof(yyvsp[0]), 10, yyval);}
+#line 1315 "simplebison.tab.c"
     break;
 
-  case 31: /* Expression: Expression BIG Expression  */
+  case 31: /* Expression: Expression ">" Expression  */
 #line 79 "simplebison.y"
                             {gcvt(atof(yyvsp[-2])>atof(yyvsp[0]), 10, yyval);}
-#line 1317 "simplebison.tab.c"
+#line 1321 "simplebison.tab.c"
     break;
 
-  case 32: /* Expression: Expression AND Expression  */
+  case 32: /* Expression: Expression "&&" Expression  */
 #line 80 "simplebison.y"
-                            {gcvt(atof(yyvsp[-2])&&atof(yyvsp[0]), 10, yyval);}
-#line 1323 "simplebison.tab.c"
+                             {gcvt(atof(yyvsp[-2])&&atof(yyvsp[0]), 10, yyval);}
+#line 1327 "simplebison.tab.c"
     break;
 
-  case 33: /* Expression: Expression BIT_OR Expression  */
+  case 33: /* Expression: Expression "|" Expression  */
 #line 81 "simplebison.y"
-                               {gcvt((int)atof(yyvsp[-2]) | (int)atof(yyvsp[0]), 10, yyval);}
-#line 1329 "simplebison.tab.c"
+                            {gcvt((int)atof(yyvsp[-2]) | (int)atof(yyvsp[0]), 10, yyval);}
+#line 1333 "simplebison.tab.c"
     break;
 
-  case 34: /* Expression: Expression OR Expression  */
+  case 34: /* Expression: Expression "||" Expression  */
 #line 82 "simplebison.y"
-                           {gcvt(atof(yyvsp[-2])||atof(yyvsp[0]), 10, yyval);}
-#line 1335 "simplebison.tab.c"
+                             {gcvt(atof(yyvsp[-2])||atof(yyvsp[0]), 10, yyval);}
+#line 1339 "simplebison.tab.c"
     break;
 
   case 35: /* Expression: Expression PLUS_EQUAL Expression  */
 #line 83 "simplebison.y"
                                    {gcvt(atof(yyvsp[-2]) + atof(yyvsp[0]), 10, yyval);}
-#line 1341 "simplebison.tab.c"
+#line 1345 "simplebison.tab.c"
     break;
 
   case 36: /* Expression: Expression MULT_EQUAL Expression  */
 #line 84 "simplebison.y"
                                    {gcvt(atof(yyvsp[-2]) * atof(yyvsp[0]), 10, yyval);}
-#line 1347 "simplebison.tab.c"
+#line 1351 "simplebison.tab.c"
     break;
 
   case 37: /* Expression: Expression DIV_EQUAL Expression  */
 #line 85 "simplebison.y"
                                   {gcvt(atof(yyvsp[-2]) / atof(yyvsp[0]), 10, yyval);}
-#line 1353 "simplebison.tab.c"
+#line 1357 "simplebison.tab.c"
     break;
 
-  case 38: /* Expression: Expression NOT Expression  */
+  case 38: /* Expression: Expression "!" Expression  */
 #line 86 "simplebison.y"
                             {gcvt(!atof(yyvsp[-2]), 10, yyval);}
-#line 1359 "simplebison.tab.c"
+#line 1363 "simplebison.tab.c"
     break;
 
   case 39: /* Expression: DOUBLE_PLUS Expression  */
 #line 87 "simplebison.y"
                          {gcvt(atof(++yyvsp[-1]), 10, yyval);}
-#line 1365 "simplebison.tab.c"
+#line 1369 "simplebison.tab.c"
     break;
 
   case 40: /* Expression: Expression DOUBLE_PLUS  */
 #line 88 "simplebison.y"
                         {gcvt(atof(yyvsp[-1]++), 10, yyval);}
-#line 1371 "simplebison.tab.c"
+#line 1375 "simplebison.tab.c"
     break;
 
   case 41: /* Expression: Expression DOUBLE_MINUS  */
 #line 89 "simplebison.y"
                          { gcvt(atof(yyvsp[-1]--), 10, yyval);}
-#line 1377 "simplebison.tab.c"
+#line 1381 "simplebison.tab.c"
     break;
 
   case 42: /* Expression: DOUBLE_MINUS Expression  */
 #line 90 "simplebison.y"
                            {gcvt(atof(--yyvsp[-1]), 10, yyval);}
-#line 1383 "simplebison.tab.c"
+#line 1387 "simplebison.tab.c"
     break;
 
-  case 43: /* Expression: Expression BIT_AND Expression  */
+  case 43: /* Expression: Expression "&" Expression  */
 #line 91 "simplebison.y"
-                                {gcvt((int)atof(yyvsp[-2]) & (int)atof(yyvsp[0]), 10, yyval);}
-#line 1389 "simplebison.tab.c"
+                            {gcvt((int)atof(yyvsp[-2]) & (int)atof(yyvsp[0]), 10, yyval);}
+#line 1393 "simplebison.tab.c"
     break;
 
   case 44: /* Expression: Expression EQUAL Expression  */
 #line 92 "simplebison.y"
-                              {gcvt(atof(yyvsp[-2]) = atof(yyvsp[0]), 10, yyval);}
-#line 1395 "simplebison.tab.c"
+                              {
+    double result = atof(yyvsp[0]);
+    gcvt(result, 10, yyval);
+}
+#line 1402 "simplebison.tab.c"
     break;
 
-  case 45: /* Expression: NOT Expression  */
-#line 93 "simplebison.y"
+  case 45: /* Expression: "!" Expression  */
+#line 96 "simplebison.y"
                 { gcvt(!atof(yyvsp[0]), 10, yyval);}
-#line 1401 "simplebison.tab.c"
+#line 1408 "simplebison.tab.c"
     break;
 
   case 46: /* Expression: INTEGER  */
-#line 94 "simplebison.y"
+#line 97 "simplebison.y"
           { gcvt(atoi(yyvsp[0]), 10, yyval); }
-#line 1407 "simplebison.tab.c"
+#line 1414 "simplebison.tab.c"
     break;
 
   case 47: /* Expression: FLOAT  */
-#line 95 "simplebison.y"
+#line 98 "simplebison.y"
           { gcvt(atof(yyvsp[0]), 10, yyval); }
-#line 1413 "simplebison.tab.c"
+#line 1420 "simplebison.tab.c"
     break;
 
 
-#line 1417 "simplebison.tab.c"
+#line 1424 "simplebison.tab.c"
 
       default: break;
     }
@@ -1606,14 +1613,8 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 98 "simplebison.y"
+#line 101 "simplebison.y"
 
-
-void truncatehash(char* str) {
-     size_t len = strlen(str);
-     memmove(str, str + 1, len - 1);
-     memset(str+len-1, 0, 1);
-}
 
 int yyerror(char *s) {
   printf("%s\n", s);
