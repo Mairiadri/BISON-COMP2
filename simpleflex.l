@@ -12,12 +12,12 @@ Flex file for a full calculator
 %}
 
 INTCONST        (0|[1-9][0-9]*|0[0-7]*|0[xX][0-9a-fA-F]+)
-FLOAT           -?([0-9])+\.[0-9]*([eE][-+]?([0-9])+)?
+FLOAT           -?([0-9])+(\.[0-9]*)?([eE][-+]?([0-9])+)?
 COMMENT         \/\/.*|(\/\*[^*]*\*+([^/*][^*]*\*+)*\/)
 KEYWORD        (break|case|func|const|continue|do|double|else|float|for|if|int|long|return|short|sizeof|struct|switch|void|while)
 STRING          \"[^\"]*\"
 IDENTIFIER      [a-zA-Z_][a-zA-Z0-9_]{0,31}
-ERROR           ^[\\?\\.\\/\\\\\\$\\%\\`\\~\\:\\>\\<\\@\\,]
+ERROR           ^[\\?\\.\\/\\\\\\$\\%\\`\\~\\:\\>\\<\\@\\,| Α-Ωα-ω]
 
 %%
 

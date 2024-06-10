@@ -42,7 +42,7 @@ Line:
 ;
 
 Comment:
-     COMMENT { /*truncatehash($1);*/ $$=$1; }
+     COMMENT { $$=$1; }
 ;
 
 Key:
@@ -63,8 +63,9 @@ var:
 
 err:
      ERROR { $$=$1; }
-     | INTCONST var
-     | IDENTIFIER DELIMITER
+     | INTCONST var { yyerror("Variable start with a number"); }
+     | IDENTIFIER DELIMITER { yyerror("Variable with ;"); }
+     | ERROR DELIMITER { yyerror("error!!!"); }
 ;
 
 Expression:
@@ -79,14 +80,31 @@ Expression:
      | MINUS Expression %prec NEG       {  gcvt(-atof($2), 10, $$); }
      | '(' Expression ')'               { $$ = $2; }
      | Expression BIGGER Expression     {  gcvt(atof($1) > atof($3), 10, $$); }
+     | IDENTIFIER BIGGER Expression     {  gcvt(atof($1) > atof($3), 10, $$); }
+     | IDENTIFIER BIGGER IDENTIFIER     {  gcvt(atof($1) > atof($3), 10, $$); }
      | Expression SMALLER Expression    {  gcvt(atof($1) < atof($3), 10, $$); }
+     | IDENTIFIER SMALLER Expression     {  gcvt(atof($1) < atof($3), 10, $$); }
+     | IDENTIFIER SMALLER IDENTIFIER     {  gcvt(atof($1) < atof($3), 10, $$); }
      | Expression DOUBLE_EQUAL Expression {  gcvt(atof($1) == atof($3), 10, $$); }
+     | IDENTIFIER DOUBLE_EQUAL Expression     {  gcvt(atof($1) == atof($3), 10, $$); }
+     | IDENTIFIER DOUBLE_EQUAL IDENTIFIER     {  gcvt(atof($1) ==  atof($3), 10, $$); }
      | Expression NOT_EQUAL Expression  {  gcvt(atof($1) != atof($3), 10, $$); }
+     | IDENTIFIER NOT_EQUAL Expression     {  gcvt(atof($1) != atof($3), 10, $$); }
+     | IDENTIFIER NOT_EQUAL IDENTIFIER     {  gcvt(atof($1) != atof($3), 10, $$); }
      | Expression SMALL_EQUAL Expression {  gcvt(atof($1) <= atof($3), 10, $$); }
+     | IDENTIFIER SMALL_EQUAL Expression     {  gcvt(atof($1) <= atof($3), 10, $$); }
+     | IDENTIFIER SMALL_EQUAL IDENTIFIER     {  gcvt(atof($1) <= atof($3), 10, $$); }
      | Expression BIG_EQUAL Expression  {  gcvt(atof($1) >= atof($3), 10, $$); }
+     | IDENTIFIER BIG_EQUAL Expression     {  gcvt(atof($1) >= atof($3), 10, $$); }
+     | IDENTIFIER BIG_EQUAL IDENTIFIER     {  gcvt(atof($1) >= atof($3), 10, $$); }
      | Expression OR Expression  {  gcvt(atof($1) || atof($3), 10, $$); }
+     | IDENTIFIER OR Expression     {  gcvt(atof($1) || atof($3), 10, $$); }
+     | IDENTIFIER OR IDENTIFIER     {  gcvt(atof($1) || atof($3), 10, $$); }
      | Expression AND Expression  {  gcvt(atof($1) && atof($3), 10, $$); }
+     | IDENTIFIER AND Expression     {  gcvt(atof($1) && atof($3), 10, $$); }
+     | IDENTIFIER AND IDENTIFIER     {  gcvt(atof($1) && atof($3), 10, $$); }
      | NOT Expression  {  gcvt(!atof($1), 10, $$); }
+     | NOT IDENTIFIER  {  gcvt(!atof($1), 10, $$); }
      | Expression PLUS_EQUAL Expression {  gcvt(atof($1) + atof($3), 10, $$); }
      | IDENTIFIER PLUS_EQUAL Expression DELIMITER{  gcvt(atof($1) + atof($3), 10, $$); }
      | Expression MINUS_EQUAL Expression {  gcvt(atof($1) - atof($3), 10, $$); }
@@ -103,12 +121,6 @@ Expression:
 ;
 
 %%
-
-/*void truncatehash(char* str) {
-     size_t len = strlen(str);
-     memmove(str, str + 1, len - 1);
-     memset(str+len-1, 0, 1);
-}*/
 
 int yyerror(char *s) {
   printf("Error: %s\n", s);
