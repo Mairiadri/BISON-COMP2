@@ -87,7 +87,8 @@ extern int yydebug;
     BIT_AND = 288,                 /* BIT_AND  */
     POWER = 289,                   /* POWER  */
     SEM = 290,                     /* SEM  */
-    NEG = 291                      /* NEG  */
+    SCAN = 291,                    /* SCAN  */
+    NEG = 292                      /* NEG  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

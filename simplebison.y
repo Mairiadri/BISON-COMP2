@@ -11,7 +11,8 @@ int yyerror(char *);
 
 %token INTCONST FLOAT COMMENT SMALLER BIGGER MOD KEYWORD DELIMITER
 %token PLUS MINUS MULTIPLY DIV EQUAL BIG_EQUAL SMALL_EQUAL NOT_EQUAL
-%token PLUS_EQUAL MINUS_EQUAL MULT_EQUAL DIV_EQUAL ERROR END STRING OR AND NOT IDENTIFIER DOUBLE_EQUAL DOUBLE_PLUS DOUBLE_MINUS BIT_AND POWER SEM
+%token PLUS_EQUAL MINUS_EQUAL MULT_EQUAL DIV_EQUAL ERROR END STRING OR AND NOT IDENTIFIER DOUBLE_EQUAL DOUBLE_PLUS DOUBLE_MINUS BIT_AND POWER SEM SCAN
+
 
 %left PLUS MINUS
 %left MULTIPLY DIV MOD
@@ -20,7 +21,7 @@ int yyerror(char *);
 %nonassoc EQUAL BIG_EQUAL SMALL_EQUAL NOT_EQUAL BIGGER SMALLER
 %right NOT
 %right NEG
-%left '(' ')'
+%left '(' ')' '[' ']'
 
 %start Input
 %%
@@ -41,6 +42,7 @@ Line:
      | Expression SEM { yyerror("Unexpected comma in expression."); }
 ;
 
+
 Comment:
      COMMENT { $$=$1; }
 ;
@@ -54,11 +56,13 @@ str:
      | str Expression
 ;
 
+
 var:
      IDENTIFIER { $$=$1; }
      | var Expression DELIMITER
      | KEYWORD var DELIMITER
      | KEYWORD var Expression DELIMITER
+     | SCAN '(' IDENTIFIER ')' DELIMITER
 ;
 
 err:
@@ -72,13 +76,26 @@ Expression:
      INTCONST       { $$ = $1; }
      | FLOAT        { $$ = $1; }
      | Expression PLUS Expression       {  gcvt(atof($1) + atof($3), 10, $$); }
+     | IDENTIFIER PLUS Expression     {  gcvt(atof($1) + atof($3), 10, $$); }
+     | IDENTIFIER PLUS IDENTIFIER     {  gcvt(atof($1) + atof($3), 10, $$); }
      | Expression MINUS Expression      {  gcvt(atof($1) - atof($3), 10, $$); }
+     | IDENTIFIER MINUS Expression     {  gcvt(atof($1) - atof($3), 10, $$); }
+     | IDENTIFIER MINUS IDENTIFIER     {  gcvt(atof($1) - atof($3), 10, $$); }
      | Expression MULTIPLY Expression   {  gcvt(atof($1) * atof($3), 10, $$); }
+     | IDENTIFIER MULTIPLY Expression     {  gcvt(atof($1) * atof($3), 10, $$); }
+     | IDENTIFIER MULTIPLY IDENTIFIER     {  gcvt(atof($1) * atof($3), 10, $$); }
      | Expression DIV Expression        {  gcvt(atof($1) / atof($3), 10, $$); }
+     | IDENTIFIER DIV Expression     {  gcvt(atof($1) / atof($3), 10, $$); }
+     | IDENTIFIER DIV IDENTIFIER     {  gcvt(atof($1) / atof($3), 10, $$); }
      | Expression MOD Expression        {  gcvt(fmod(atof($1), atof($3)), 10, $$); }
+     | IDENTIFIER MOD Expression     {  gcvt(fmod(atof($1), atof($3)), 10, $$); }
+     | IDENTIFIER MOD IDENTIFIER    {  gcvt(fmod(atof($1), atof($3)), 10, $$); }
      | Expression POWER Expression      {  gcvt(pow(atof($1), atof($3)), 10, $$); }
+     | IDENTIFIER POWER Expression     {  gcvt(pow(atof($1), atof($3)), 10, $$); }
+     | IDENTIFIER POWER IDENTIFIER     {  gcvt(pow(atof($1) , atof($3)), 10, $$); }
      | MINUS Expression %prec NEG       {  gcvt(-atof($2), 10, $$); }
      | '(' Expression ')'               { $$ = $2; }
+     | '[' INTCONST ']'               { $$ = $2; }
      | Expression BIGGER Expression     {  gcvt(atof($1) > atof($3), 10, $$); }
      | IDENTIFIER BIGGER Expression     {  gcvt(atof($1) > atof($3), 10, $$); }
      | IDENTIFIER BIGGER IDENTIFIER     {  gcvt(atof($1) > atof($3), 10, $$); }

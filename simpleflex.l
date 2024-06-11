@@ -54,4 +54,5 @@ ERROR           ^[\\?\\.\\/\\\\\\$\\%\\`\\~\\:\\>\\<\\@\\,| Α-Ωα-ω]
 "--"    return DOUBLE_MINUS;
 "&"     return BIT_AND;
 ","     return SEM;
+"scan"  return SCAN; 
 %%
