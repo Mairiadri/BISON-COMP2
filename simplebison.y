@@ -38,6 +38,7 @@ Line:
      | Array END           { printf("ARRAY: %s\n", $1); }
      | sca END           { printf("SCAN: %s\n", $1); }
      | prnt END          {printf("PRINT: %s\n", $1);}
+     | merge END         {printf("Merge Array: %s\n", $1);}
      | Key END           { printf("KEYWORD: %s\n", $1); }
      | str END           { printf("Strings: %s\n", $1); }
      | var END           { printf("IDENTIFIER: %s\n", $1); }
@@ -67,7 +68,10 @@ Length:
 Array:
      LEFTA INTCONST SEM INTCONST SEM INTCONST SEM INTCONST SEM INTCONST RIGHTA
      | LEFTA STRING SEM STRING SEM STRING SEM STRING RIGHTA 
-     | LEFTA INTCONST RIGHTA
+     | LEFTA INTCONST RIGHTA 
+     | LEFTA INTCONST SEM INTCONST SEM INTCONST RIGHTA
+     | LEFTA INTCONST SEM INTCONST RIGHTA
+     | LEFTA INTCONST SEM INTCONST SEM INTCONST SEM INTCONST RIGHTA
 ;
 
 prnt :
@@ -76,6 +80,10 @@ prnt :
      |PRINTI LEFT Compare RIGHT DELIMITER
      |PRINTI LEFT Length RIGHT DELIMITER
      |PRINTI LEFT IDENTIFIER Array RIGHT DELIMITER 
+;
+
+merge :
+     Array PLUS Array 
 ;
 
 Key:
@@ -116,6 +124,7 @@ Expression:
      | Expression PLUS Expression       {  gcvt(atof($1) + atof($3), 10, $$); }
      | IDENTIFIER PLUS Expression     {  gcvt(atof($1) + atof($3), 10, $$); }
      | IDENTIFIER PLUS IDENTIFIER     {  gcvt(atof($1) + atof($3), 10, $$); }
+     | INTCONST PLUS IDENTIFIER MINUS INTCONST    {  gcvt(atof($1) + atof($3) - atof($5), 10, $$); }
      | Expression MINUS Expression      {  gcvt(atof($1) - atof($3), 10, $$); }
      | IDENTIFIER MINUS Expression     {  gcvt(atof($1) - atof($3), 10, $$); }
      | IDENTIFIER MINUS IDENTIFIER     {  gcvt(atof($1) - atof($3), 10, $$); }
