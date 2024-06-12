@@ -90,7 +90,8 @@ extern int yydebug;
     SCAN = 291,                    /* SCAN  */
     LEFT = 292,                    /* LEFT  */
     RIGHT = 293,                   /* RIGHT  */
-    NEG = 294                      /* NEG  */
+    COMPARE = 294,                 /* COMPARE  */
+    NEG = 295                      /* NEG  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

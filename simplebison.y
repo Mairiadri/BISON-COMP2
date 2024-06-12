@@ -12,7 +12,7 @@ int yyerror(char *);
 %token INTCONST FLOAT COMMENT SMALLER BIGGER MOD KEYWORD DELIMITER
 %token PLUS MINUS MULTIPLY DIV EQUAL BIG_EQUAL SMALL_EQUAL NOT_EQUAL
 %token PLUS_EQUAL MINUS_EQUAL MULT_EQUAL DIV_EQUAL ERROR END STRING OR AND NOT IDENTIFIER DOUBLE_EQUAL DOUBLE_PLUS DOUBLE_MINUS BIT_AND POWER SEM SCAN LEFT RIGHT
-
+%token COMPARE
 
 %left PLUS MINUS
 %left MULTIPLY DIV MOD
@@ -34,6 +34,8 @@ Line:
      END
      | Expression END    { printf("Result: %s\n", $1); }
      | Comment END       { printf("COMMENT: %s\n", $1); }
+     | Compare END       { printf("COMPARE: %s\n", $1); }
+     | sca END           { printf("SCAN: %s\n", $1); }
      | Key END           { printf("KEYWORD: %s\n", $1); }
      | str END           { printf("Strings: %s\n", $1); }
      | var END           { printf("IDENTIFIER: %s\n", $1); }
@@ -47,6 +49,12 @@ Comment:
      COMMENT { $$=$1; }
 ;
 
+Compare:
+     COMPARE LEFT STRING SEM STRING RIGHT DELIMITER
+     | COMPARE LEFT IDENTIFIER SEM IDENTIFIER RIGHT DELIMITER
+;
+
+
 Key:
      KEYWORD { $$=$1; }
 ;
@@ -56,13 +64,15 @@ str:
      | str Expression
 ;
 
+sca:
+     SCAN LEFT IDENTIFIER RIGHT DELIMITER   { printf("Enter value for %s: ", $3); scanf("%s", $3); }
+;
 
 var:
      IDENTIFIER { $$=$1; }
      | var Expression DELIMITER
      | KEYWORD var DELIMITER
-     | KEYWORD var Expression DELIMITER
-     | SCAN LEFT IDENTIFIER RIGHT DELIMITER   { printf("Enter value for %s: ", $3); scanf("%s", $3); }
+     | KEYWORD var Expression DELIMITER   
 ;
 
 err:
