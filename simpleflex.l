@@ -23,6 +23,7 @@ LONG            (long)
 SHORT           (short)
 FLOATI          (float)
 LEN             (len)
+PRINTI           (print)
 STRING          \"[^\"]*\"
 IDENTIFIER      [a-zA-Z_][a-zA-Z0-9_]{0,31}
 ERROR           ^[\\?\\.\\/\\\\\\$\\%\\`\\~\\:\\>\\<\\@\\,| Α-Ωα-ω]
@@ -40,9 +41,11 @@ ERROR           ^[\\?\\.\\/\\\\\\$\\%\\`\\~\\:\\>\\<\\@\\,| Α-Ωα-ω]
 {INT}           { yylval=yytext;    return INT;         }
 {LONG}          { yylval=yytext;    return LONG;         }
 {SHORT}         { yylval=yytext;    return SHORT;       }
-{FLOATI}         { yylval=yytext;    return FLOATI;        }
+{FLOATI}        { yylval=yytext;    return FLOATI;        }
 {LEN}           { yylval=yytext;    return LEN;         }
+{PRINTI}        { yylval=yytext;    return PRINTI;         }
 {STRING}        { yylval=(yytext);  return STRING;      } /*1.3.3 Λεκτικά κυριολεκτικά*/
+
 {IDENTIFIER}    { yylval=(yytext);  return IDENTIFIER;  } /*1.3.1 Αναγνωριστικά (ονόματα)*/
 {ERROR}         { yylval=(yytext);  return ERROR;       }
 

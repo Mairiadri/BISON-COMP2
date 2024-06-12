@@ -99,7 +99,8 @@ extern int yydebug;
     SHORT = 300,                   /* SHORT  */
     FLOATI = 301,                  /* FLOATI  */
     LEN = 302,                     /* LEN  */
-    NEG = 303                      /* NEG  */
+    PRINTI = 303,                  /* PRINTI  */
+    NEG = 304                      /* NEG  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
