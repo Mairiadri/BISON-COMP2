@@ -11,8 +11,8 @@ int yyerror(char *);
 
 %token INTCONST FLOAT COMMENT SMALLER BIGGER MOD KEYWORD DELIMITER
 %token PLUS MINUS MULTIPLY DIV EQUAL BIG_EQUAL SMALL_EQUAL NOT_EQUAL
-%token PLUS_EQUAL MINUS_EQUAL MULT_EQUAL DIV_EQUAL ERROR END STRING OR AND NOT IDENTIFIER DOUBLE_EQUAL DOUBLE_PLUS DOUBLE_MINUS BIT_AND POWER SEM SCAN LEFT RIGHT
-%token COMPARE
+%token PLUS_EQUAL MINUS_EQUAL MULT_EQUAL DIV_EQUAL ERROR END STRING OR AND NOT IDENTIFIER DOUBLE_EQUAL DOUBLE_PLUS DOUBLE_MINUS BIT_AND POWER SEM SCAN LEFT RIGHT LEFTA RIGHTA
+%token COMPARE DOUBLE INT LONG SHORT FLOATI LEN
 
 %left PLUS MINUS
 %left MULTIPLY DIV MOD
@@ -21,7 +21,6 @@ int yyerror(char *);
 %nonassoc EQUAL BIG_EQUAL SMALL_EQUAL NOT_EQUAL BIGGER SMALLER
 %right NOT
 %right NEG
-%left '[' ']'
 
 %start Input
 %%
@@ -35,6 +34,8 @@ Line:
      | Expression END    { printf("Result: %s\n", $1); }
      | Comment END       { printf("COMMENT: %s\n", $1); }
      | Compare END       { printf("COMPARE: %s\n", $1); }
+     | Length END           { printf("LENGTH: %s\n", $1); }
+     | Array END           { printf("ARRAY: %s\n", $1); }
      | sca END           { printf("SCAN: %s\n", $1); }
      | Key END           { printf("KEYWORD: %s\n", $1); }
      | str END           { printf("Strings: %s\n", $1); }
@@ -54,6 +55,16 @@ Compare:
      | COMPARE LEFT IDENTIFIER SEM IDENTIFIER RIGHT DELIMITER
 ;
 
+Length:
+      LEN LEFT Array RIGHT DELIMITER 
+     |LEN LEFT STRING RIGHT DELIMITER
+     |LEN LEFT IDENTIFIER RIGHT DELIMITER
+;
+
+Array:
+     LEFTA INTCONST SEM INTCONST SEM INTCONST SEM INTCONST SEM INTCONST RIGHTA
+;
+
 
 Key:
      KEYWORD { $$=$1; }
@@ -71,7 +82,12 @@ sca:
 var:
      IDENTIFIER { $$=$1; }
      | var Expression DELIMITER
-     | KEYWORD var DELIMITER
+     | DOUBLE var DELIMITER
+     | INT var DELIMITER
+     | LONG var DELIMITER
+     | SHORT var DELIMITER
+     | FLOATI var DELIMITER
+     | LONG INT var DELIMITER
      | KEYWORD var Expression DELIMITER   
 ;
 
@@ -105,7 +121,8 @@ Expression:
      | IDENTIFIER POWER IDENTIFIER     {  gcvt(pow(atof($1) , atof($3)), 10, $$); }
      | MINUS Expression %prec NEG       {  gcvt(-atof($2), 10, $$); }
      | LEFT Expression RIGHT               { $$ = $2; }
-     | '[' INTCONST ']'               { $$ = $2; }
+     | LEFTA INTCONST RIGHTA               { $$ = $2; }
+     | LEFTA Expression RIGHTA               { $$ = $2; }
      | Expression BIGGER Expression     {  gcvt(atof($1) > atof($3), 10, $$); }
      | IDENTIFIER BIGGER Expression     {  gcvt(atof($1) > atof($3), 10, $$); }
      | IDENTIFIER BIGGER IDENTIFIER     {  gcvt(atof($1) > atof($3), 10, $$); }

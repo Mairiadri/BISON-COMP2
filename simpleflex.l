@@ -14,9 +14,15 @@ Flex file for a full calculator
 INTCONST        (0|[1-9][0-9]*|0[0-7]*|0[xX][0-9a-fA-F]+)
 FLOAT           -?([0-9])+(\.[0-9]*)?([eE][-+]?([0-9])+)?
 COMMENT         \/\/.*|(\/\*[^*]*\*+([^/*][^*]*\*+)*\/)
-KEYWORD         (break|case|func|const|continue|do|double|else|float|for|if|int|long|return|short|sizeof|struct|switch|void|while)
+KEYWORD         (break|case|func|const|continue|do|else|for|if|return|sizeof|struct|switch|void|while)
 SCAN            (scan)
 COMPARE         (cmp)
+DOUBLE          (double)
+INT             (int)
+LONG            (long)
+SHORT           (short)
+FLOATI          (float)
+LEN             (len)
 STRING          \"[^\"]*\"
 IDENTIFIER      [a-zA-Z_][a-zA-Z0-9_]{0,31}
 ERROR           ^[\\?\\.\\/\\\\\\$\\%\\`\\~\\:\\>\\<\\@\\,| Α-Ωα-ω]
@@ -30,6 +36,12 @@ ERROR           ^[\\?\\.\\/\\\\\\$\\%\\`\\~\\:\\>\\<\\@\\,| Α-Ωα-ω]
 {KEYWORD}       { yylval=yytext;    return KEYWORD;     } /*1.3.2 Λέξεις κλειδιά*/
 {SCAN}          { yylval=yytext;    return SCAN;     } /*scan*/
 {COMPARE}       { yylval=yytext;    return COMPARE;     }
+{DOUBLE}        { yylval=yytext;    return DOUBLE;      }
+{INT}           { yylval=yytext;    return INT;         }
+{LONG}          { yylval=yytext;    return LONG;         }
+{SHORT}         { yylval=yytext;    return SHORT;       }
+{FLOATI}         { yylval=yytext;    return FLOATI;        }
+{LEN}           { yylval=yytext;    return LEN;         }
 {STRING}        { yylval=(yytext);  return STRING;      } /*1.3.3 Λεκτικά κυριολεκτικά*/
 {IDENTIFIER}    { yylval=(yytext);  return IDENTIFIER;  } /*1.3.1 Αναγνωριστικά (ονόματα)*/
 {ERROR}         { yylval=(yytext);  return ERROR;       }
@@ -61,4 +73,6 @@ ERROR           ^[\\?\\.\\/\\\\\\$\\%\\`\\~\\:\\>\\<\\@\\,| Α-Ωα-ω]
 ","     return SEM;
 "("     return LEFT;
 ")"     return RIGHT;
+"["     return LEFTA;
+"]"     return RIGHTA;
 %%

@@ -90,8 +90,16 @@ extern int yydebug;
     SCAN = 291,                    /* SCAN  */
     LEFT = 292,                    /* LEFT  */
     RIGHT = 293,                   /* RIGHT  */
-    COMPARE = 294,                 /* COMPARE  */
-    NEG = 295                      /* NEG  */
+    LEFTA = 294,                   /* LEFTA  */
+    RIGHTA = 295,                  /* RIGHTA  */
+    COMPARE = 296,                 /* COMPARE  */
+    DOUBLE = 297,                  /* DOUBLE  */
+    INT = 298,                     /* INT  */
+    LONG = 299,                    /* LONG  */
+    SHORT = 300,                   /* SHORT  */
+    FLOATI = 301,                  /* FLOATI  */
+    LEN = 302,                     /* LEN  */
+    NEG = 303                      /* NEG  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
