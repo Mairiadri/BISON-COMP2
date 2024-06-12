@@ -11,7 +11,7 @@ int yyerror(char *);
 
 %token INTCONST FLOAT COMMENT SMALLER BIGGER MOD KEYWORD DELIMITER
 %token PLUS MINUS MULTIPLY DIV EQUAL BIG_EQUAL SMALL_EQUAL NOT_EQUAL
-%token PLUS_EQUAL MINUS_EQUAL MULT_EQUAL DIV_EQUAL ERROR END STRING OR AND NOT IDENTIFIER DOUBLE_EQUAL DOUBLE_PLUS DOUBLE_MINUS BIT_AND POWER SEM SCAN
+%token PLUS_EQUAL MINUS_EQUAL MULT_EQUAL DIV_EQUAL ERROR END STRING OR AND NOT IDENTIFIER DOUBLE_EQUAL DOUBLE_PLUS DOUBLE_MINUS BIT_AND POWER SEM SCAN LEFT RIGHT
 
 
 %left PLUS MINUS
@@ -21,7 +21,7 @@ int yyerror(char *);
 %nonassoc EQUAL BIG_EQUAL SMALL_EQUAL NOT_EQUAL BIGGER SMALLER
 %right NOT
 %right NEG
-%left '(' ')' '[' ']'
+%left '[' ']'
 
 %start Input
 %%
@@ -62,7 +62,7 @@ var:
      | var Expression DELIMITER
      | KEYWORD var DELIMITER
      | KEYWORD var Expression DELIMITER
-     | SCAN '(' IDENTIFIER ')' DELIMITER
+     | SCAN LEFT IDENTIFIER RIGHT DELIMITER   { printf("Enter value for %s: ", $3); scanf("%s", $3); }
 ;
 
 err:
@@ -94,7 +94,7 @@ Expression:
      | IDENTIFIER POWER Expression     {  gcvt(pow(atof($1), atof($3)), 10, $$); }
      | IDENTIFIER POWER IDENTIFIER     {  gcvt(pow(atof($1) , atof($3)), 10, $$); }
      | MINUS Expression %prec NEG       {  gcvt(-atof($2), 10, $$); }
-     | '(' Expression ')'               { $$ = $2; }
+     | LEFT Expression RIGHT               { $$ = $2; }
      | '[' INTCONST ']'               { $$ = $2; }
      | Expression BIGGER Expression     {  gcvt(atof($1) > atof($3), 10, $$); }
      | IDENTIFIER BIGGER Expression     {  gcvt(atof($1) > atof($3), 10, $$); }
